@@ -8,23 +8,19 @@
 
           <a-col :md="6" :sm="8">
             <a-form-item label="模块名称">
-              <a-input placeholder="请输入模块名称" v-model="queryParam.modul"></a-input>
+              <j-dict-select-tag v-model="queryParam.modul"  placeholder="请选择模块名称" dictCode="oa_modul_dict,modul_name,modul_code"/>
+
             </a-form-item>
           </a-col>
           <a-col :md="6" :sm="8">
             <a-form-item label="问题类型">
-              <a-input placeholder="请输入问题类型" v-model="queryParam.etype"></a-input>
+              <j-dict-select-tag  v-model="queryParam.etype" placeholder="请选择问题类型" dictCode="exceptionType"/>
             </a-form-item>
           </a-col>
         <template v-if="toggleSearchStatus">
         <a-col :md="6" :sm="8">
             <a-form-item label="问题描述">
               <a-input placeholder="请输入问题描述" v-model="queryParam.content"></a-input>
-            </a-form-item>
-          </a-col>
-          <a-col :md="6" :sm="8">
-            <a-form-item label="图片">
-              <a-input placeholder="请输入图片" v-model="queryParam.image"></a-input>
             </a-form-item>
           </a-col>
           <a-col :md="6" :sm="8">
