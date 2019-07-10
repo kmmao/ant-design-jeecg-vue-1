@@ -5,7 +5,6 @@
     <div class="table-page-search-wrapper">
       <a-form layout="inline">
         <a-row :gutter="24">
-
           <a-col :md="6" :sm="8">
             <a-form-item label="信息主体">
               <a-input placeholder="请输入信息主体" v-model="queryParam.entityId"></a-input>
