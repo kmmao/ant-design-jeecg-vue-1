@@ -22,7 +22,6 @@
               <a-input placeholder="请输入文件名称" v-model="queryParam.fileName"></a-input>
             </a-form-item>
           </a-col>
-
           </template>
           <a-col :md="6" :sm="8" >
             <span style="float: left;overflow: hidden;" class="table-page-search-submitButtons">
