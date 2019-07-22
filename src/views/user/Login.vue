@@ -5,7 +5,7 @@
         :activeKey="customActiveKey"
         :tabBarStyle="{ textAlign: 'center', borderBottom: 'unset' }"
         @change="handleTabClick">
-        <a-tab-pane key="tab1" tab="账号密码登陆">
+        <a-tab-pane key="tab1" tab="请输入账号和密码">
           <a-form-item>
             <a-input
               size="large"
@@ -48,7 +48,7 @@
 
 
         </a-tab-pane>
-        <a-tab-pane key="tab2" tab="手机号登陆">
+<!--        <a-tab-pane key="tab2" tab="手机号登陆">
           <a-form-item>
             <a-input
               v-decorator="['mobile',validatorRules.mobile]"
@@ -80,7 +80,7 @@
                 v-text="!state.smsSendBtn && '获取验证码' || (state.time+' s')"></a-button>
             </a-col>
           </a-row>
-        </a-tab-pane>
+        </a-tab-pane>-->
       </a-tabs>
 
       <a-form-item>

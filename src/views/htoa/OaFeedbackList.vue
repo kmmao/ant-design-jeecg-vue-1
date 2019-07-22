@@ -189,7 +189,7 @@
     }
   },
     methods: {
-     
+
     }
   }
 </script>

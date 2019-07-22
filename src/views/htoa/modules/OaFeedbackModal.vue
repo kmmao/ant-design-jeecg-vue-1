@@ -89,12 +89,6 @@
           label="联系电话">
           <a-input placeholder="请输入联系电话" v-decorator="['telephone',  validatorRules.telephone]" />
         </a-form-item>
-        <!--<a-form-item
-          :labelCol="labelCol"
-          :wrapperCol="wrapperCol"
-          label="严重程度">
-          <a-input placeholder="请输入严重程度" v-decorator="['urgency', {}]" />
-        </a-form-item>-->
         <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
