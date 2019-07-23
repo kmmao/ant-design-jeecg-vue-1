@@ -207,8 +207,7 @@
       getAdviceTypes() {
         const _this = this;
         this.axios(`api/queryModulDictlist`).then((res) => {
-          debugger;
-          if (res.result.length) {
+          if (res.code === 0) {
             this.loading = false;
             _this.$store.commit(`SAVE_ADVICE_TYPE`, res.result);
             this.advicetype = JSON.parse(localStorage.getItem(`advicetypes`)) || this.$store.state.advicetype;
@@ -220,10 +219,12 @@
       // 获取帮助列表
       getExamples() {
         const _this = this;
-        this.axios(`http://localhost/api/examples`).then((res) => {
-          if (res.data.length) {
+        this.axios(`api/queryProblemlist`).then((res) => {
+          console.log(res)
+          debugger;
+          if (res.code === 0) {
             this.loading = false;
-            _this.$store.commit(`SAVE_EXAMPLES`, res.data);
+            _this.$store.commit(`SAVE_EXAMPLES`, res.result.records);
             this.examples = JSON.parse(localStorage.getItem(`examples`)) ||
               this.$store.state.examples;
           } else {
@@ -234,10 +235,10 @@
       //  获取建议列表
       getAdvices() {
         const _this = this;
-        this.axios(`http://localhost/api/advices`).then((res) => {
-          if (res.data.length) {
+        this.axios(`api/queryFeedbackPageList`).then((res) => {
+          if (res.code === 0) {
             this.loading = false;
-            _this.$store.commit(`SAVE_ADVICES`, res.data);
+            _this.$store.commit(`SAVE_ADVICES`, res.result.records);
             this.advices = JSON.parse(localStorage.getItem(`advices`)) || this.$store.state.advices;
           }
         });
