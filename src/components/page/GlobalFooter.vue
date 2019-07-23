@@ -7,11 +7,11 @@
       </a>
       <a href="https://ant.design/">Ant Design</a>
       <a href="https://vuecomponent.github.io/ant-design-vue/docs/vue/introduce-cn/">Vue Antd</a>
-    </div>
-    <div class="copyright">
+    </div>-->
+    <!--FIXME<div class="copyright">
       Copyright
       <a-icon type="copyright"/>
-      2019 <span>JEECG开源社区 出品</span>
+      2019 <span>航天二院 7〇6所 出品</span>
     </div>-->
   </div>
 </template>
