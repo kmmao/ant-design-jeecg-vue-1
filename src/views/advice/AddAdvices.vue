@@ -17,7 +17,7 @@
                   }
                 ]"
                       placeholder="请选择一个类别">
-              <a-select-option v-for="(item,index) in advicetypes" :value="item.value" :key="index">
+              <a-select-option v-for="(item,index) in advicetypes" :value="item.name" :key="index">
                 {{ item.name }}
               </a-select-option>
             </a-select>
@@ -35,7 +35,7 @@
             <a-input placeholder="请输入图片"  :value="uploadData.entityId" />
           </a-form-item>
           <a-form-item v-bind="formItemLayout" label="添加图片">
-            <a-upload action="http://192.168.43.207:8080/jeecg-boot/sys/common/upload"
+            <a-upload :action="actionURL"
                       listType="picture-card"
                       :fileList="fileList"
                       @preview="handlePreview"
@@ -113,10 +113,11 @@
     created() {
       this.getExamples();
       this.getAdviceTypes();
-      //this.headers = {"X-Access-Token":token },
-      this.headers = {
-        "X-Access-Token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1NjM3Nzc0MzUsInVzZXJuYW1lIjoiYWRtaW4ifQ.-mXPeCdqh4LNWqWXNfKkn2F61ZgQVGNg7-Xau4hS5Ww"
-      };
+    },
+    computed:{
+      actionURL(){
+        return window._CONFIG['domianURL'] + "/sys/common/upload"
+      }
     },
     methods: {
       handleCancel() {
@@ -165,11 +166,11 @@
       //建议类型
       getAdviceTypes() {
         const _this = this;
-        this.axios(`http://localhost/api/advicetypes`)
+        this.axios(`api/queryModulDictlist`)
           .then((res) => {
-            if (res.data.length) {
+            if (res.code === 0) {
               this.loading = false;
-              _this.$store.commit(`SAVE_ADVICE_TYPE`, res.data);
+              _this.$store.commit(`SAVE_ADVICE_TYPE`, res.result);
               this.advicetypes = JSON.parse(localStorage.getItem(`advicetypes`)) || this.$store.state.advicetypes;
             } else {
               this.$message.error(`数据获取失败`);
@@ -179,9 +180,9 @@
       // 获取帮助列表
       getExamples() {
         const _this = this;
-        this.axios(`http://localhost/api/examples`).then((res) => {
-          if (res.data.length) {
-            _this.$store.commit(`SAVE_EXAMPLES`, res.data);
+        this.axios(`api/queryProblemlist`).then((res) => {
+          if (res.code === 0) {
+            _this.$store.commit(`SAVE_EXAMPLES`, res.result.records);
             this.examples = JSON.parse(localStorage.getItem(`examples`)) ||
               this.$store.state.examples;
           } else {
