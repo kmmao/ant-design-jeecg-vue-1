@@ -138,7 +138,6 @@
 
 <script>
   // import Layout from "../layouts/Layout";
-
   export default {
     name: `advices`,
     components: {
@@ -170,7 +169,6 @@
           return this.advices;
         }
         return this.advices.filter((item) => {
-          console.log(item.modul_dictText);
           return item.modul_dictText === this.advicestag;
         });
       },
@@ -232,9 +230,14 @@
       getAdvices() {
         const _this = this;
         this.axios(`api/queryFeedbackPageList`).then((res) => {
-          console.log(res.result.records)
           if (res.code === 0) {
             this.loading = false;
+            res.result.records.map((item,index)=>{
+              if(item.avatar){
+                item.avatar = window._CONFIG['domianURL'] + "/" +item.avatar
+              }
+              return item
+            })
             _this.$store.commit(`SAVE_ADVICES`, res.result.records);
             this.advices = JSON.parse(localStorage.getItem(`advices`)) || this.$store.state.advices;
           }
