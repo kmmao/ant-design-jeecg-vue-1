@@ -152,7 +152,13 @@
 		   {
             title: '问题描述',
             align:"center",
-            dataIndex: 'content'
+            dataIndex: 'content',
+            customRender:function (value) {
+              if(value.length > 30){
+                return value.substring(0,30)+"..."
+              }
+              return value;
+            }
            },
 		   {
             title: '联系电话',
