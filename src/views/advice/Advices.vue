@@ -166,14 +166,12 @@
     },
     computed: {
       selectedAdvices() {
-        console.log(this.advicestag);
-
         if (this.advicestag === `` ||this.advicestag === `全部分类`) {
           return this.advices;
         }
         return this.advices.filter((item) => {
-          console.log(item.type);
-          return item.type === this.advicestag;
+          console.log(item.modul_dictText);
+          return item.modul_dictText === this.advicestag;
         });
       },
     },
@@ -220,11 +218,9 @@
       getExamples() {
         const _this = this;
         this.axios(`api/queryProblemlist`).then((res) => {
-          console.log(res)
-          debugger;
           if (res.code === 0) {
             this.loading = false;
-            _this.$store.commit(`SAVE_EXAMPLES`, res.result.records);
+            _this.$store.commit(`SAVE_EXAMPLES`, res.result.records);            
             this.examples = JSON.parse(localStorage.getItem(`examples`)) ||
               this.$store.state.examples;
           } else {
@@ -236,6 +232,7 @@
       getAdvices() {
         const _this = this;
         this.axios(`api/queryFeedbackPageList`).then((res) => {
+          console.log(res.result.records)
           if (res.code === 0) {
             this.loading = false;
             _this.$store.commit(`SAVE_ADVICES`, res.result.records);
