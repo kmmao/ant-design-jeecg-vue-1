@@ -206,10 +206,11 @@
       // 获取建议类型
       getAdviceTypes() {
         const _this = this;
-        this.axios(`http://localhost/api/advicetypes`).then((res) => {
-          if (res.data.length) {
+        this.axios(`api/queryModulDictlist`).then((res) => {
+          debugger;
+          if (res.result.length) {
             this.loading = false;
-            _this.$store.commit(`SAVE_ADVICE_TYPE`, res.data);
+            _this.$store.commit(`SAVE_ADVICE_TYPE`, res.result);
             this.advicetype = JSON.parse(localStorage.getItem(`advicetypes`)) || this.$store.state.advicetype;
           } else {
             this.$message.error(`数据获取失败`);
