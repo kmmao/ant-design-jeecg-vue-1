@@ -4,24 +4,27 @@
       <div class="top">
         <div class="header">
           <a href="/">
-            <!--<img src="~@/assets/logo.svg" class="logo" alt="logo">-->
+            <!--FIXME <img src="~@/assets/logo.svg" class="logo" alt="logo">-->
             <span class="title">问题反馈系统</span>
           </a>
+        </div>
+          <div class="desc">
+          收集用户在使用系统过程中的问题
         </div>
       </div>
 
       <route-view></route-view>
 
-<!--      <div class="footer">
+ <div class="footer">
         <div class="links">
           <a href="http://jeecg-boot.mydoc.io" target="_blank">帮助</a>
           <a href="https://github.com/zhangdaiscott/jeecg-boot" target="_blank">隐私</a>
           <a href="https://github.com/zhangdaiscott/jeecg-boot" target="_blank">条款</a>
         </div>
-        <div class="copyright">
-          Copyright &copy; 2019 <a href="http://www.jeecg.org" target="_blank">JEECG开源社区</a> 出品
-        </div>
-      </div>-->
+        <!--FIXME <div class="copyright">
+          Copyright &copy; 2019 <a href="http://www.jeecg.org" target="_blank">航天二院 7〇6所</a> 出品
+        </div>-->
+      </div>
     </div>
   </div>
 </template>
