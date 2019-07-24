@@ -27,7 +27,7 @@
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label="问题描述">
-          <a-textarea placeholder="请输入问题描述" v-decorator="['content', validatorRules.content]" />
+          <a-textarea placeholder="请输入问题描述" v-decorator="['content', {}]" />
         </a-form-item>
         <a-form-item
           :labelCol="labelCol"
