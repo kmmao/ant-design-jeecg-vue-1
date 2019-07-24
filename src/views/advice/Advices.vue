@@ -120,7 +120,7 @@
                 <a-list-item
                   slot="renderItem"
                   slot-scope="item, index">
-                  <a :href="item.url" target="_blank">{{ item.title }}</a>
+                  <a :href="item.filePath" target="_blank">{{ item.title }}</a>
                 </a-list-item>
                 <div
                   slot="header"
@@ -187,7 +187,7 @@
         this.advicestag = `全部分类`;
       },
       add() {
-        this.$router.push(`/add`);
+        this.$router.push(`/advice/add`);
       },
       like() {
         this.likes = 1;
@@ -218,6 +218,12 @@
         this.axios(`api/queryProblemlist`).then((res) => {
           if (res.code === 0) {
             this.loading = false;
+             res.result.records.map((item,index)=>{
+              if(item.filePath){
+                item.filePath = window._CONFIG['pdfDomain'] + "/" +item.filePath
+              }
+              return item
+            })
             _this.$store.commit(`SAVE_EXAMPLES`, res.result.records);            
             this.examples = JSON.parse(localStorage.getItem(`examples`)) ||
               this.$store.state.examples;
