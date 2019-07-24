@@ -8,8 +8,8 @@
             justify="end"
             align="bottom"
             class="nav-top">
-            <a-col :span="2"><p class="height-10">{{ user ? user.name : `Loading...` }}</p></a-col>
-            <a-col :span="2"><p class="height-10"><a :href="user.url">系统首页</a></p></a-col>
+            <a-col :span="2"><p class="height-10">欢迎您 {{ user ? user.realname : `Loading...` }}!</p></a-col>
+            <a-col :span="2"><p class="height-10" style="margin-left:20px"><a :href="user.url">首页</a></p></a-col>
           </a-row>
         </div>
       </div>
@@ -51,13 +51,17 @@
     },
     data () {
         return {
-          user:{"name":'刁立涛',"info":{},"url":''}
         };
     },
     computed: {
       keepAlive () {
         return this.$route.meta.keepAlive
+      },
+      user(){
+        console.log(this.$store.getters.userInfo)
+        return this.$store.getters.userInfo
       }
+
     },
     methods: {
 
