@@ -26,16 +26,6 @@
           :xl="18">
           <div class="left">
             <a-skeleton :loading="loading">
-              <!--            <a-card @tabChange="selectedone(index)">-->
-              <!--              <a-card-grid-->
-              <!--                v-for="(item, index) in advicetype"-->
-              <!--                :key="index"-->
-              <!--                style="width:25%;textAlign:'center'"-->
-
-              <!--              ><a-icon-->
-              <!--                :type="item.icon"-->
-              <!--                style="margin-right:10px"/>{{ item.name }}</a-card-grid>-->
-              <!--            </a-card>-->
               <a-row :gutter="2">
                 <a-col
                   v-for="(item, index) in advicetype"
