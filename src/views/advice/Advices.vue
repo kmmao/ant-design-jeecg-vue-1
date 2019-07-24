@@ -44,6 +44,7 @@
               </a-row>
             </a-skeleton>
             <div>
+              
               <a-skeleton :loading="loading">
                 <a-list
                   :pagination="pagination"
@@ -56,28 +57,47 @@
                     slot="renderItem"
                     slot-scope="item, index"
                     key="item.title"
-                  >
-                    <template
-                      v-for="{ type, text } in actions"
+                  >  
+                    
+                    <!-- 点赞数  -->
+                    <template 
                       slot="actions">
                       <span :key="type">
                         <a-icon
-                          :type="type"
+                          :type="actions[0].type"
                           style="margin-right: 8px"
                           @click="like()"/>
-                        {{ text }}
+                        {{ item.likes }} 
+                      </span>
+                        <span :key="type">
+                        <a-icon
+                          :type="actions[1].type"
+                          style="margin-right: 8px"
+                          @click="like()"/>
+                          {{ item.dislikes }}
                       </span>
                     </template>
                     <a-list-item-meta :description="item.description">
+                      <!-- 头像 -->
+                     
                       <a
                         slot="title"
-                        :href="item.href">{{ item.title }}</a>
+                        :href="item.href">{{ item.realname }}</a>
+                       <a class="createTime"
+                        slot="title"
+                        :href="item.href">{{ item.createTime }}</a>
                       <a-avatar
                         slot="avatar"
-                        :src="item.avatar" />
+                        :src="item.avatar" />  
                     </a-list-item-meta>
                     {{ item.content }}
+                    <div>
+                      <ul class="images">
+                        <li  v-for="objImg in item.imageList"><img style="width: 222px;height:144px;" :src="url.imgerver+objImg.filePath"  :preview="index" alt=""></li>
+                      </ul>
+                    </div>
                   </a-list-item>
+                  
                 </a-list>
               </a-skeleton>
             </div>
@@ -140,6 +160,7 @@
         advicestag: ``,
         examples: [],
         advicetype: [],
+        imgIndex:0,
         advices: [],
         pagination: {
           onChange: (page) => {
@@ -151,6 +172,13 @@
           { type: `like`, text: `156` },
           { type: `dislike`, text: `156` },
         ],
+         url: {
+          add: "/api/addFeedback",
+          fileUpload: window._CONFIG['domianURL']+"/sys/common/upload",
+          imgerver: window._CONFIG['domianURL']+"/sys/common/view/",
+          pdferver: window._CONFIG['domianURL']+"/sys/common/viewPDF/",
+          
+        }
       };
     },
     computed: {
@@ -303,5 +331,23 @@
   }
   .letter-bd{
     font-weight: 700;
+  }
+  .images{
+        padding: 0;
+    padding-top: 15px;
+  }
+  .images li{
+    list-style: none;
+    display: inline-block;
+    margin-right:8px;
+    margin-bottom: 8px;
+
+  }
+  .createTime{
+    font-size: 12px;
+    color: #927f7f;
+    font-weight: 500;
+    font-family: Microsoft yahei;
+    margin-left: 15px;
   }
 </style>
