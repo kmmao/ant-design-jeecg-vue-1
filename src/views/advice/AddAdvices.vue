@@ -213,13 +213,14 @@
             httpAction(httpurl,formData,method).then((res)=>{
               if(res.success){
                 that.$message.success(res.message);
+                that.$router.push('/advice')
               }else{
                 that.$message.warning(res.message);
                 
               }
             }).finally(() => {
               that.confirmLoading = false;
-              that.close();
+              that.close();    
             })
           }
         })

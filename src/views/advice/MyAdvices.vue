@@ -8,6 +8,47 @@
           :md="18"
           :lg="18"
           :xl="18">
+          <template v-if="advices.length">
+            <div class="left">
+              <a-skeleton :loading="loading">
+                <a-list
+                  :pagination="pagination"
+                  :data-source="advices"
+                  item-layout="vertical"
+                  size="large"
+                  class="advice-list"
+                >
+                  <a-list-item
+                    slot="renderItem"
+                    slot-scope="item, index"
+                    key="item.title"
+                  >
+                    <template
+                      v-for="{ type, text } in actions"
+                      slot="actions">
+                      <span :key="type">
+                        <a-icon
+                          :type="type"
+                          style="margin-right: 8px"
+                          @click="like()"/>
+                        {{ text }}
+                      </span>
+                    </template>
+                    <a-list-item-meta :description="item.description">
+                      <a
+                        slot="title"
+                        :href="item.href">{{ item.title }}</a>
+                      <a-avatar
+                        slot="avatar"
+                        :src="item.avatar" />
+                    </a-list-item-meta>
+                    {{ item.content }}
+                  </a-list-item>
+                </a-list>
+              </a-skeleton>
+            </div>
+          </template>
+          <template v-else>
           <div class="left advices-none">
             <p>您还没有提交建议。</p>
             <p>
@@ -16,6 +57,7 @@
               <router-link to="/advice">常见建议</router-link>。
             </p>
           </div>
+          </template>
         </a-col>
         <a-col
           :xs="24"
@@ -74,14 +116,26 @@
         loading:true,
         large: `large`,
         examples: [],
+        advices: [],
+        pagination: {
+          onChange: (page) => {
+            console.log(page);
+          },
+          pageSize: 10,
+        },
+        actions: [
+          { type: `like`, text: `156` },
+          { type: `dislike`, text: `156` },
+        ],
       };
     },
     created(){
+      this.getAdvices();
       this.getExamples()
     },
     methods:{
       add(){
-        this.$router.push('/add')
+        this.$router.push('/advice/add')
       },
       // 获取帮助列表
       getExamples() {
@@ -100,6 +154,23 @@
               this.$store.state.examples;
           } else {
             this.$message.error(`数据获取失败`);
+          }
+        });
+      },
+      //  获取建议列表
+      getAdvices() {
+        const _this = this;
+        this.axios(`api/queryFeedbackPageList`).then((res) => {
+          if (res.code === 0) {
+            this.loading = false;
+            res.result.records.map((item,index)=>{
+              if(item.avatar){
+                item.avatar = window._CONFIG['domianURL'] + "/" +item.avatar
+              }
+              return item
+            })
+            _this.$store.commit(`SAVE_ADVICES`, res.result.records);
+            this.advices = JSON.parse(localStorage.getItem(`advices`)) || this.$store.state.advices;
           }
         });
       },
