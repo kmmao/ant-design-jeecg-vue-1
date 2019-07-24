@@ -12,8 +12,8 @@
             <p>您还没有提交建议。</p>
             <p>
               您可以
-              <router-link to="/add">写一条建议</router-link>，也可以查看
-              <router-link to="/">常见建议</router-link>。
+              <router-link to="/advice/add">写一条建议</router-link>，也可以查看
+              <router-link to="/advice">常见建议</router-link>。
             </p>
           </div>
         </a-col>
@@ -28,8 +28,10 @@
               :size="large"
               type="primary"
               icon="edit"
-              @click="add"
-              block>我要提建议</a-button>
+              block
+              @click="add()"
+            >我要提建议</a-button
+            >
             <div class="advice-notice">
               <p class="letter-bd">请详细描述您的问题以及建议</p>
               <p>我们会细心聆听，解决问题！</p>
@@ -42,11 +44,13 @@
                 <a-list-item
                   slot="renderItem"
                   slot-scope="item, index">
-                  <a :href="item.url" target="_blank">{{ item.title }}</a>
+                  <a :href="item.filePath" target="_blank">{{ item.title }}</a>
                 </a-list-item>
                 <div
                   slot="header"
-                  class="advice-example-title">以下咨询可能对你有帮助！</div>
+                  class="advice-example-title">
+                  以下咨询可能对你有帮助！
+                </div>
               </a-list>
             </a-skeleton>
           </div>
@@ -68,6 +72,7 @@
     data() {
       return {
         loading:true,
+        large: `large`,
         examples: [],
       };
     },
@@ -81,10 +86,16 @@
       // 获取帮助列表
       getExamples() {
         const _this = this;
-        this.axios(`http://localhost/api/examples`).then((res) => {
-          if (res.data.length) {
-            this.loading = false
-            _this.$store.commit(`SAVE_EXAMPLES`, res.data);
+        this.axios(`api/queryProblemlist`).then((res) => {
+          if (res.code === 0) {
+            this.loading = false;
+             res.result.records.map((item,index)=>{
+              if(item.filePath){
+                item.filePath = window._CONFIG['pdfDomain'] + "/" +item.filePath
+              }
+              return item
+            })
+            _this.$store.commit(`SAVE_EXAMPLES`, res.result.records);            
             this.examples = JSON.parse(localStorage.getItem(`examples`)) ||
               this.$store.state.examples;
           } else {
