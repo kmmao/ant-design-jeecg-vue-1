@@ -160,7 +160,11 @@
       //  获取建议列表
       getAdvices() {
         const _this = this;
-        this.axios(`api/queryFeedbackPageList`).then((res) => {
+        this.axios.get(`api/queryFeedbackPageList`, {
+    params: {
+      flag: 1
+    }
+  }).then((res) => {
           if (res.code === 0) {
             this.loading = false;
             res.result.records.map((item,index)=>{
