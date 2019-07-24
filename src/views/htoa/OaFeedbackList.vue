@@ -12,11 +12,6 @@
 
             </a-form-item>
           </a-col>
-          <a-col :md="6" :sm="8">
-            <a-form-item label="问题类型">
-              <j-dict-select-tag  v-model="queryParam.etype" placeholder="请选择问题类型" dictCode="exceptionType"/>
-            </a-form-item>
-          </a-col>
         <template v-if="toggleSearchStatus">
         <a-col :md="6" :sm="8">
             <a-form-item label="问题描述">
@@ -145,14 +140,15 @@
             dataIndex: 'modul_dictText'
            },
 		   {
-            title: '问题类型',
-            align:"center",
-            dataIndex: 'etype_dictText'
-           },
-		   {
             title: '问题描述',
             align:"center",
-            dataIndex: 'content'
+            dataIndex: 'content',
+            customRender:function (value) {
+              if(value.length > 30){
+                return value.substring(0,30)+"..."
+              }
+              return value;
+            }
            },
 		   {
             title: '联系电话',

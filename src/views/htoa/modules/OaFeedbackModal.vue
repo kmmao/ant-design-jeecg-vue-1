@@ -19,6 +19,7 @@
         <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
+          :hidden="true"
           label="问题类型">
           <j-dict-select-tag v-decorator="['etype', validatorRules.etype]" :triggerChange="true" placeholder="请选择问题类型" dictCode="exceptionType"/>
         </a-form-item>
@@ -26,7 +27,7 @@
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label="问题描述">
-          <a-textarea placeholder="请输入问题描述" v-decorator="['content', validatorRules.content]" />
+          <a-textarea placeholder="请输入问题描述" v-decorator="['content', {}]" />
         </a-form-item>
         <a-form-item
           :labelCol="labelCol"
@@ -144,7 +145,6 @@
         form: this.$form.createForm(this),
         validatorRules:{
           modul:{ rules : [{required : true ,message : "请输入模块名称!"}]},
-          etype:{ rules : [{required : true ,message : "请输入问题类型!"}]},
           content:{ rules : [{required : true ,message : "请输入问题描述!"}]},
           telephone:{ rules : [
                   {required : true ,message : "请输入联系电话!"},
